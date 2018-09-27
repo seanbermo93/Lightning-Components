@@ -1,0 +1,14 @@
+<aura:component>
+    <aura:attribute
+                    name="editor" type="Aura.Component" />
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <lightning:button
+                      name="cancel"
+                      label="Cancel"
+                      onclick="{!c.onCancel}"/>
+    <lightning:button
+                      name="save"
+                      label="Save"
+                      variant="brand"
+                      onclick="{!c.onSave}"/>
+</aura:component>

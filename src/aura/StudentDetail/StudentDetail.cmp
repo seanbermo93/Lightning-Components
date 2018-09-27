@@ -1,0 +1,45 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="StudentDetailController">
+    <aura:attribute name="contactId" access="private" type="String" default="" />
+    <aura:attribute name="courseDeliveryId" access="private" type="String"  />
+    <aura:attribute name="contact" access="public" type="Contact"  />
+    <aura:attribute name="recordError" access="private" type="String" default="" />
+    <aura:attribute name="isSelected" access="public" type="Boolean" default="false"/>
+    <aura:attribute name="History" access="private" type="Course_Attendee__c[]" />	
+    
+    <aura:handler
+                  event="c:AwInstructorsStudentSelected"
+                  action="{!c.onStudentSelected}"/>
+    
+    <force:recordData
+                      aura:id="recordLoader"
+                      recordId="{!v.contactId}"
+                      targetFields="{!v.contact}"
+                      targetError="{!v.recordError}"
+                      fields="Name,Email,Phone,Description"
+                      />
+    
+    <aura:if isTrue="{!v.isSelected}">
+        <lightning:card title="{!v.contact.Name}" >	
+            <div class="sd_output-values">
+                <lightning:formattedEmail value="{!v.contact.Email}"></lightning:formattedEmail><br />
+                <lightning:formattedPhone value="{!v.contact.Phone}"></lightning:formattedPhone><br />
+                <c:StudentDetailAccordion
+                                          courses="{!v.History}"
+                                          contactId="{!v.contactId}"/><br />
+                <lightning:formattedText readonly="true" value="{!v.contact.Description}" ></lightning:formattedText> <br />
+                <lightning:button label="Go To Record" title="Neutral action" onclick="{! c.handleClick }"/>
+            </div>
+        </lightning:card>
+        <lightning:card>
+            <lightning:tabset>
+            <lightning:tab label="History" id="one">
+                <c:StudentHistory history="{!v.History}"/>
+            </lightning:tab>
+            <lightning:tab label="Edit Notes" id="two">
+                <c:EditStudentNote attendances="{!v.History}"/>
+            </lightning:tab>
+        </lightning:tabset>
+        </lightning:card>
+    </aura:if>
+    
+</aura:component>

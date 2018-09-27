@@ -1,0 +1,18 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute
+                    name="simpleRecord" type="Contact"/>
+    <aura:handler
+                  name="init"
+                  value="{!this}"
+                  action="{!c.doInit}"/>
+    <force:recordData
+                      aura:Id="recordHandler"
+                      recordId="{!v.recordId}"
+                      fields="Phone"
+                      targetFields="{!v.simpleRecord}"/>
+    
+    <lightning:card>
+        <c:DialButton
+                      phoneNumber="{!v.simpleRecord.Phone}"/>
+    </lightning:card>
+</aura:component>

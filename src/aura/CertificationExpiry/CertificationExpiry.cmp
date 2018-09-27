@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="CertificationExpiry"
+                extends="c:Base" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="expiryMessage" type="String" default="Loading Expiry Info"/>
+   <lightning:formattedText value="{!v.expiryMessage}"></lightning:formattedText>
+</aura:component>

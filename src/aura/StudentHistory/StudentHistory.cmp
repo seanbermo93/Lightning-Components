@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:attribute name="history" 
+                    type="Course_Attendee__c[]"
+                    access="public"/>
+    
+    
+    
+    
+    <aura:iteration items="{!v.history}" var="historyItem">
+        <lightning:tile class="slds-tile-board" label="{!historyItem.Id + ' -- ' +historyItem.Name}">
+            <lightning:formattedRichText value="{!historyItem.InstructorNotes__c}" />
+        </lightning:tile>
+    </aura:iteration>
+        
+        
+</aura:component>

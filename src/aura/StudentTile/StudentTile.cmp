@@ -1,0 +1,37 @@
+<aura:component description="Student tile component description">
+    <aura:registerEvent
+                        name="onStudentSelected"
+                        type="c:StudentSelected" />
+    
+    <aura:attribute
+                    name="student"
+                    type="Contact" 
+                    access="public"
+                    default="{
+                             'sobjectType':'Contact',
+                             'Name':'Sean Bermingham',
+                             'PhotoUrl':
+                             '/services/images/photo/003B0000009VnYcIAK'}"
+                    description="Contact record"
+                    />
+    
+    <aura:attribute
+                    name="selected"
+                    type="boolean"
+                    access="public"
+                    default="false"
+                    required="true"
+                    />
+    <lightning:button
+                      variant="neutral"
+                      onclick="{!c.onStudentClick}"
+                      class="{! v.selected ? 'tile selected' : 'tile'}">
+        <div class="innertile" style="{# 'background-image:url(' +
+                                      v.student.PhotoUrl + ')'}" >
+            <div class="lower-third">
+                <h1 class="truncate">{#v.student.Name}</h1>
+            </div>
+        </div>
+    </lightning:button>
+    
+</aura:component>

@@ -1,0 +1,8 @@
+.THIS.slds-table td {
+    font-family: t(myGridFont);
+}
+@media (max-width: 767px) {
+    .THIS .hiddenColumn {
+        display: none !important;
+    }
+}

@@ -1,0 +1,23 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <div class="slds-grid">
+        <div class="slds-col slds-size_3-of-3 slds-box">
+            <span>Header</span>
+        </div>
+    </div>
+      <div class="slds-grid">
+        <div class="slds-col slds-size_2-of-3 slds-box">
+            <span>Content A</span>
+        </div>
+        <div class="slds-col slds-size_1-of-3 slds-box">
+            <span>Aside</span>
+        </div>
+    </div>
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-3 slds-box">
+            <span>Content B</span>
+        </div>
+        <div class="slds-col slds-size_1-of-3 slds-box">
+            <span>Content C</span>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,13 @@
+<aura:component >
+    <aura:handler name="onStudentSelected"
+                  event="c:StudentSelected"
+                  action="{!c.onStudentSelected}"/>
+    <div style="position:relative;width:128px">
+        <c:StudentTile
+                       student="{ sobjectType:'Contact',
+                                Name:'your name here',
+                                Id : '003B0000009VnyiIAC',
+                                PhotoUrl:
+                                '/services/images/photo/003B0000009VnYcIAK'}"/>
+    </div>
+</aura:component>

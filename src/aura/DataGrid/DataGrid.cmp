@@ -1,0 +1,40 @@
+<aura:component >
+    <aura:attribute name="cols"
+                    type="Object[]"
+                    access="PRIVATE"
+                    description="The grid columns"/>
+    
+    <aura:attribute name="rows"
+                    type="Object[]"
+                    access="PRIVATE"
+                    description="The rows"/>
+    
+    <aura:attribute name="data"
+                    type="Object[]"
+                    access="PUBLIC"
+                    description="The grid row data"/>
+    
+    <aura:attribute name="pkField"
+                    type="String"
+                    access="PUBLIC"
+                    required="true"
+                    description="Primary key field in each data row"/>
+    
+    <aura:method
+                 name="setSelection"
+                 action="{!c.setSelection}"
+                 access="PUBLIC"
+                 description="Set selected row, by ID">
+        <aura:attribute
+                        name="Id"
+                        type="String"
+                        default=""/>
+    </aura:method>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:handler name="change" value="{!v.data}" action="{!c.doInit}"/>
+    
+    <c:DataGridTable rows="{!v.rows}" cols="{!v.cols}" aura:id="datagridtable"/>
+    
+</aura:component>

@@ -1,0 +1,131 @@
+<aura:component extends="c:Base"
+                controller="TripReportForm">
+    <aura:attribute name="reviewOptions"
+                    type="Object[]"
+                    access="PRIVATE"/>
+    <aura:attribute
+                    name="Id"
+                    type="String"
+                    access="PUBLIC"
+                    description="Id for Trip Report."
+                    default=""/>
+    <aura:attribute
+                    name="objReport"
+                    type="Object"
+                    access="PRIVATE"
+                    description="Target for force:recordData."/>
+    <aura:attribute
+                    name="objReportFields"
+                    type="Object"
+                    access="PRIVATE"
+                    description="Target fields for force:recordData."/>
+    <aura:attribute
+                    name="objReportError"
+                    type="String"
+                    access="PRIVATE"
+                    description="Error message for force:recordData."/>
+    <aura:attribute name="instructors" type="User[]"
+                    access="PRIVATE"/>
+    
+    <aura:registerEvent
+                        name="ontripreportmodechange"
+                        type="c:TripReportModeChange"/>
+    
+    <aura:handler name="init" value="{!this}"
+                  action="{!c.doInit}"/>
+    <aura:handler name="change"
+                  value="{!v.Id}"
+                  action="{!c.onChangeId}"/>
+    
+    <aura:if isTrue="{!empty(v.Id)}">
+        <force:recordData
+                          aura:id="recordOps"
+                          targetRecord="{!v.objReport}"
+                          targetFields="{!v.objReportFields}"
+                          targetError="{!v.objReportError}"
+                          mode="EDIT"
+                          fields="Name, Instructor__c, Date__c, Rating__c,
+                                  Review__c, ReviewType__c"/>
+        <aura:set attribute="else">
+            <force:recordData
+                              aura:id="recordOps"
+                              targetRecord="{!v.objReport}"
+                              targetFields="{!v.objReportFields}"
+                              targetError="{!v.objReportError}"
+                              mode="EDIT"
+                              fields="Name, Instructor__c, Date__c, Rating__c,
+                                      Review__c, ReviewType__c"
+                              recordId="{v.Id}"
+                              recordUpdated="{!c.onBlur}"/>
+        </aura:set>
+    </aura:if>
+    <aura:if isTrue="{!not(empty(v.objReportError))}">
+        <div>
+            <ui:message
+                        title="Error"
+                        severity="error"
+                        closable="true">
+                {!v.objReportError}
+            </ui:message>
+        </div>
+    </aura:if>
+    <lightning:card title="{!empty(v.Id) ? 'Add Trip Report' :
+                           'Edit Trip Report'}">
+        <form class="slds-form_stacked" style="margin: 10px">
+            <lightning:select
+                              label="Select Instructor"
+                              name="instructor"
+                              value="{!v.objReportFields.Instructor__c}">
+                <option value="">Select Instructor</option>
+                <aura:iteration items="{!v.instructors}"
+                                var="instructor">
+                    <option value="{!instructor.Id}"
+                            selected="{!equals(v.objReportFields.Instructor__c,
+                                      instructor.Id)}">
+                        {!instructor.Name}
+                    </option>
+                </aura:iteration>
+            </lightning:select>
+            <lightning:input
+                             type="text"
+                             name="Name"
+                             label="Location Name"
+                             value="{!v.objReportFields.Name}"/>
+            <lightning:input
+                             type="date"
+                             name="date"
+                             label="Date Visited"
+                             value="{!v.objReportFields.Date__c}"/>
+            <lightning:radioGroup
+                                  type="button"
+                                  label="Review of:"
+                                  options="{!v.reviewOptions}"
+                                  name="reviewType"
+                                  value="{!v.objReportFields.ReviewType__c}"/>
+            <lightning:slider
+                              label="Quality Rating"
+                              step="1"
+                              min="1"
+                              max="5"
+                              title="Higher score indicates higher quality"
+                              value="{!v.objReportFields.Rating__c}"/>
+            Review:
+            <br />
+            <lightning:inputRichText
+                                     disabledCategories="FORMAT_FONT"
+                                     value="{!v.objReportFields.Review__c}"/>
+            <div class="slds-text-align_center" style="margin-
+                                                       top:5px">
+                <lightning:button
+                                  aura:id="btnSubmit"
+                                  variant="Brand"
+                                  label="Save"
+                                  onclick="{!c.onSave}"/>
+                <lightning:button
+                                  aura:id="btnCancel"
+                                  label="Cancel"
+                                  onclick="{c.onCancel}"/>
+            </div>
+        </form>
+    </lightning:card>
+</aura:component>

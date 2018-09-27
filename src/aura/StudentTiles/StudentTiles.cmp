@@ -1,0 +1,25 @@
+<aura:component >
+    <aura:attribute
+                    name="students"
+                    type="Contact[]"
+                    access="public"/>
+    <aura:attribute
+                    name="selectedStudentId"
+                    type="Id"
+                    access="public" />
+    
+    <lightning:layout
+                      horizontalAlign="center"
+                      multipleRows="true">
+        <aura:iteration items="{!v.students}" var="student">
+            <lightning:layoutItem
+                                  padding="around-small"
+                                  size="6"
+                                  smallDeviceSize="6"
+                                  mediumDeviceSize="4"
+                                  largeDeviceSize="3">
+                <c:StudentTile student="{#student}" selected="{!v.selectedStudentId == student.Id}"/>
+            </lightning:layoutItem>
+        </aura:iteration>
+    </lightning:layout>
+</aura:component>

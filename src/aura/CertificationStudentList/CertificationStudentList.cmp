@@ -1,0 +1,62 @@
+<aura:component extends="c:Base"
+                controller="CertificationStudentList">
+    <aura:attribute
+                    name="contacts"
+                    type="Object[]"
+                    access="private" />
+    <aura:attribute
+                    name="columns"
+                    type="Object[]"
+                    access="private" />
+    <aura:attribute
+                    name="certificationId"
+                    
+                    type="Id"
+                    access="public" />
+    <aura:attribute
+                    name="label"
+                    type="String"
+                    access="public"
+                    default="" />
+    
+    <aura:handler
+                  name="change"
+                  value="{!v.certificationId}"
+                  action="{!c.onCertificationIdChange}"/>
+    <aura:handler
+                  name="init"
+                  value="{!this}"
+                  action="{!c.doInit}"/>
+    
+    <lightning:card
+                    title="{!v.label + ' Certifications'}">
+        <aura:set attribute="actions">
+            <lightning:buttonGroup>
+                <lightning:button
+                                  label="E-Mail"
+                                  onclick="{!c.onCertActions}"
+                                  aura:Id="btnEmail"
+                                  disabled="true"/>
+                <lightning:button
+                                  label="Send Cert."
+                                  onclick="{!c.onCertActions}"
+                                  aura:Id="btnSendCert"
+                                  disabled="true"/>
+                <lightning:button
+                                  label="Delete"
+                                  onclick="{!c.onCertActions}"
+                                  variant="destructive"
+                                  aura:Id="btnDelete"
+                                  disabled="true"/>
+            </lightning:buttonGroup>
+        </aura:set>
+    </lightning:card>
+    <lightning:datatable
+                         data="{!v.contacts}"
+                         columns="{!v.columns}"
+                         keyField="certificationHeldId"
+                         hideCheckboxColumn="false"
+                         onclick="{!c.selectedRows}"
+                         aura:Id="datatable"
+                         onrowselection="{!c.onRowSelection}"/>
+</aura:component>

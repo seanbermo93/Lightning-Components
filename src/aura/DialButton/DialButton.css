@@ -1,0 +1,15 @@
+.THIS, .THIS.a {
+    width: 100%;
+    text-align: center;
+}
+
+.THIS .roundbutton {
+    border-radius: 5px;
+    border: 1px solid black;
+    box-shadow: 0px 4px 3px #666666;
+    margin-bottom: 10px;
+}
+
+.THIS .roundbutton:active {
+    box-shadow: 0px 1px 3px green;
+}

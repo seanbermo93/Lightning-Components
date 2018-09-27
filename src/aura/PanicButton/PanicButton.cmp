@@ -1,0 +1,58 @@
+<aura:component implements="flexipage:availableForAllPageTypes"
+                access="global"
+                description="Never press the big red button!!!">
+
+    <aura:attribute name="sound"
+                    type="String"
+                    default="Sad Trombone"
+                    description="valid values=Sad Trombone|Explosion,see docs for more details"/>
+
+    <aura:attribute name="message"
+                    type="String"
+                    default="D'Oh"
+                    description="Message to display while audio is playing"/>
+
+    <aura:attribute name="soundUrl"
+                    type="String"
+                    default=""
+                    access="PRIVATE"/>
+
+    <aura:attribute name="soundOptions"
+                    type="Map[]"
+                    default=""
+                    access="PRIVATE"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div>
+
+        <lightning:button onclick="{!c.handleClick}" variant="base">
+            <div class= "panicbutton"/>
+        </lightning:button>
+
+        <lightning:select aura:id="soundSelector"
+                          name="soundSelector"
+                          label="Select Sound"
+                          value="{!v.soundUrl}">
+
+            <aura:iteration items="{!v.soundOptions}" var="option">
+                <option value="{!option.fileUrl}">
+                    {!option.Name}
+                </option>
+            </aura:iteration>
+
+        </lightning:select>
+
+        <audio aura:id="audioclip"
+               controls="controls"
+               onended = "{!c.onPlaybackEnded}"
+               src="{!v.soundUrl}"/>
+
+
+        <div aura:id="message" class="slds-hide message">
+            {! v.message }
+        </div>
+
+    </div>
+
+</aura:component>

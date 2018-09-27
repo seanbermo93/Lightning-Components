@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Certification_Attempt_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Default_Compact_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Default_Compact_Layout</fullName>
+        <fields>Name</fields>
+        <fields>RecordTypeId</fields>
+        <fields>Certification_Element__c</fields>
+        <fields>Certification_Candidate__c</fields>
+        <fields>Status__c</fields>
+        <label>Default Compact Layout</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Used to track each time a contact attempts a certification.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attempt_Date__c</fullName>
+        <description>Date a candidate tries to pass a Multiple Choice certification element.</description>
+        <externalId>false</externalId>
+        <label>Attempt Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Certification_Candidate__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>Contact who is taking a certification attempt.</description>
+        <externalId>false</externalId>
+        <label>Certification Candidate</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Technician</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Certification Attempts</relationshipLabel>
+        <relationshipName>Certification_Attempts</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Certification_Element__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>Certification element for this attempt</description>
+        <externalId>false</externalId>
+        <label>Certification Element</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
+            <filterItems>
+                <field>$Source.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Multiple Choice</value>
+            </filterItems>
+            <filterItems>
+                <field>Certification_Element__c.Type__c</field>
+                <operation>equals</operation>
+                <value>Multiple Choice</value>
+            </filterItems>
+            <filterItems>
+                <field>$Source.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Lab</value>
+            </filterItems>
+            <filterItems>
+                <field>Certification_Element__c.Type__c</field>
+                <operation>equals</operation>
+                <value>Lab</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Certification_Element__c</referenceTo>
+        <relationshipLabel>Certification Attempts</relationshipLabel>
+        <relationshipName>Certification_Attempts</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Certifying_Instructor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Instructor who certifies candidate.</description>
+        <externalId>false</externalId>
+        <label>Certifying Instructor</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>User.Is_Instructor__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Certification_Attempts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Completion_Date__c</fullName>
+        <description>Date a candidate completed a Lab certification element.</description>
+        <externalId>false</externalId>
+        <label>Completion Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>Date a candidate starts a Lab certification element.</description>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Status of a certification attempt.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Scheduled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete/Pass</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete/Fail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Certification Attempt</label>
+    <nameField>
+        <displayFormat>ATTEMPT-{00000}</displayFormat>
+        <label>Certification Attempt Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Certification Attempts</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Lab</fullName>
+        <active>true</active>
+        <description>Use to create a lab certification attempt.</description>
+        <label>Lab</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Complete%2FFail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete%2FPass</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Multiple_Choice</fullName>
+        <active>true</active>
+        <description>Use to create a multiple choice certification attempt.</description>
+        <label>Multiple Choice</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Complete%2FFail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete%2FPass</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Certifying_Instructor__c</fullName>
+        <label>Certifying Instructor</label>
+    </sharingReasons>
+</CustomObject>

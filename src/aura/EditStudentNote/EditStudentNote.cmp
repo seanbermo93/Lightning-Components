@@ -1,0 +1,41 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" extends="c:Base" >
+    <aura:attribute name="attendances" 
+                    type="Course_Attendee__c[]"/>
+    <aura:attribute name="selectedAttendanceId" 
+                    type="Id" />
+    <aura:attribute name="account" type="Course_Attendee__c"/>
+    <aura:attribute name="simpleAccount" type="Course_Attendee__c"/>
+    <aura:attribute name="accountError" type="String"/>
+    <aura:attribute name="hasAttendances" type="Boolean"/>
+
+    
+    <aura:handler
+                  name="init"
+                  value="{!this}"
+                  action="{!c.doInit}" />
+    
+    
+    <force:recordData aura:id="accountRecordLoader"
+                      recordId="{!v.selectedAttendanceId}"
+                      fields="Id,Name,InstructorNotes__c"
+                      targetFields="{!v.simpleAccount}"
+                      targetError="{!v.accountError}"
+                      mode="EDIT"
+                      />
+    
+    <aura:if isTrue="{!v.hasAttendances}">
+        <lightning:select aura:id="attendanceSelect" name="attendanceSelect" label="Select An Attendance" onchange="{! c.handleChange}">
+            <aura:iteration var="attendance" items="{!v.attendances}">
+                <option text="{!attendance.Id}"></option>
+            </aura:iteration>
+        </lightning:select>
+        
+        
+        <lightning:card>
+            <lightning:input type="String" value="{!v.simpleAccount.InstructorNotes__c}" label="instructor notes"/>
+            <lightning:button aura:id="submit" type="submit" label="Update record" class="slds-m-top_medium" onclick="{!c.saveClicked}" />
+        </lightning:card>
+    </aura:if>
+    
+    
+</aura:component>

@@ -1,0 +1,30 @@
+<aura:component
+                extends="c:Base"
+                controller="StudentDetailAccordion">
+    <aura:attribute name="contactId" type="Id"
+                    access="public"/>
+    <aura:attribute name="courses" type="Course_Attendee__c[]"
+                    access="public"/>
+    <aura:attribute name="certs" type="Certification_Held__c[]"
+                    access="private"/>
+    <aura:handler
+                  name="change"
+                  value="{!v.contactId}"
+                  action="{!c.onContactIdChange}"/>
+    
+    <lightning:accordionSection
+                                label="Certifications" name="certifications">
+        <aura:iteration items="{!v.certs}" var="thisCert">
+            <lightning:tile
+                            label="{!thisCert.Date_Achieved__c + ' - ' +
+                                   thisCert.Certification__r.Name}"
+                            class="slds-tile--board">
+                <aura:set attribute="media">
+                    <lightning:icon
+                                    iconName="standard:event"/>
+                </aura:set>
+            </lightning:tile>
+        </aura:iteration>
+    </lightning:accordionSection>
+    
+</aura:component>
